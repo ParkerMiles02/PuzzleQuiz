@@ -1,0 +1,93 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.*; // For displaying winners image
+
+/**
+ * Main class for the PuzzleQuiz game.
+ */
+public class PuzzleQuiz { // FULFILLS RUBRIC REQUIREMENT #1
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        boolean solved = false; // Varible to track if puzzle is solved
+        // FULFILLS RUBRIC REQUIREMENT #10 (1/2)
+        char[] code = new char[6]; // Array to store characters earned from correct answers
+
+        // FULFILLS RUBRIC REQUIREMENT #10 (2/2)
+        ArrayList<QuizItem> questions = new ArrayList<>(); // ArrayList to hold all quiz questions
+
+        // Adds all the questions with correct answers and part of the code to the list
+        questions.add(new Question("1. What does an if-statement do in Java?" + // FULFILLS RUBRIC REQUIREMENT #2
+                "\n(a) Runs code only if a condition is true" +
+                "\n(b) Stores input" +
+                "\n(c) Repeats actions", "a", 'T'));
+
+        questions.add(new Question("2. What is iteration mainly used for?" +
+                "\n(a) Making decisions" +
+                "\n(b) Repeating code using loops" +
+                "\n(c) Printing output", "b", 'U'));
+
+        questions.add(new Question("3. What does inheritance let one class do?" +
+                "\n(a) Use features of another class" +
+                "\n(b) Create random values" +
+                "\n(c) Print messages", "a", 'R'));
+
+        questions.add(new Question("4. What does user input allow?" +
+                "\n(a) Saving files" +
+                "\n(b) Importing packages" +
+                "\n(c) Getting info from the user", "c", 'N'));
+
+        questions.add(new Question("5. What is an ArrayList in Java?" +
+                "\n(a) A flexible list that can be changed" +
+                "\n(b) A fixed-size loop" +
+                "\n(c) A 2D array", "a", 'E'));
+
+        questions.add(new Question("6. What can a 2D array represent?" +
+                "\n(a) A single variable" +
+                "\n(b) A grid of rows and columns" +
+                "\n(c) A loop counter", "b", 'R'));
+
+        // FULFILLS RUBRIC REQUIREMENT #4 (1/2)
+        while (!solved) { // While loop which repeats until user has solved the puzzle
+            for (int i = 0; i < questions.size(); i++) { // FULFILLS RUBRIC REQUIREMENT #4 (1/2)
+                code[i] = questions.get(i).ask();
+            }
+
+            // Asks the user for the correct code to win
+            System.out.print("Enter the 6-letter code: ");
+            String userCode = input.nextLine().toUpperCase();  // Converts everything to uppercase to simplify comparison
+
+            // Checks if the code is correct
+            if (userCode.equals("TURNER")) { // FULFILLS RUBRIC REQUIREMENT #3 (2/3)
+                System.out.println("Correct! You've solved the puzzle.");
+                displaySuccess(); // calls method which shows output file
+                solved = true;
+            } else {
+                System.out.println("Incorrect code. Try again.\n");  // Tells the user to retry if code is wrong and continues while loop
+            }
+        }
+    }
+
+    /**
+     * Displays a new window showing the celebration image when the user wins.
+     */
+    public static void displaySuccess() { // FULFILLS RUBRIC REQUIREMENT #9
+        JFrame frame = new JFrame("Celebration!"); // Creates a new window
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ensures the program closes when the user closes the window
+        frame.setSize(650, 650); // Window Size
+        // Loads the file from project folder
+        java.net.URL imgURL = PuzzleQuiz.class.getResource("/celebration.png");
+        // FULFILLS RUBRIC REQUIREMENT #3 (3/3)
+        if (imgURL != null) { // Checks if URL is null
+            ImageIcon celebration = new ImageIcon(imgURL);
+            JLabel label = new JLabel(celebration); // Creates a JLabel and sets the image as its icon
+            frame.add(label); // adds image to frame
+        } else {
+            JLabel label = new JLabel("Image not found!"); // Adds a filler if URL is not found
+            label.setHorizontalAlignment(JLabel.CENTER);
+            frame.add(label); // adds image to frame
+        }
+        frame.setVisible(true); // Makes the window visible
+    }
+}
