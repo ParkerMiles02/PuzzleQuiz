@@ -1,0 +1,31 @@
+/**
+ * Represents a generic quiz item, including the question text and
+ * the letter a user earns if they answer correctly.
+ */
+public class QuizItem { // FULFILLS RUBRIC REQUIREMENT #1
+    public String questionText; // Text of the question
+    public char rewardLetter; // The letter rewarded if the question is answered correctly
+
+    /**
+     * Constructs a QuizItem with the given question text and reward letter
+     * @param text the text of the question
+     * @param letter the letter earned for answering correctly
+     */
+    public QuizItem(String text, char letter) {
+        this.questionText = text;
+        this.rewardLetter = letter;
+    }
+
+    public String getQuestionText() { // Returns the text of the question
+        return questionText;
+    }
+
+    public char getRewardLetter() { // Returns the Reward Letter
+        return rewardLetter;
+    }
+
+    public char ask() { // Prints a message saying no question is available and returns '-'
+        System.out.println("No question available.");
+        return '-';
+    }
+}
