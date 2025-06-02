@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+/**
+ * Represents a multiple-choice question that can be asked in a quiz.
+ * Inherits from the QuizItem class.
+ */
+class Question extends QuizItem { // FULFILLS RUBRIC REQUIREMENT #5
+    public String correctAnswer; // Stores the correct answer for the question
+
+    /**
+     * Constructor for the Question class
+     * @param text The question itself
+     * @param answer The correct answer (a, b, or c)
+     * @param letter The reward for getting a question right
+     */
+    public Question(String text, String answer, char letter) {
+        super(text, letter); // Calls the constructor of QuizItem
+        this.correctAnswer = answer; // Sets the correct answer
+    }
+
+    /**
+     * Checks whether the user-provided answer is correct
+     * @param userAnswer The answer entered by the user
+     * @return Returns true if the answer matches and returns false if it doesn't
+     */
+    public boolean checkAnswer(String userAnswer) {
+        return userAnswer.equalsIgnoreCase(correctAnswer); // Simplifies comparison with 'equalsIgnoreCase'
+    }
+
+    /**
+     * Asks the question to the user, checks the answer,
+     * and returns the reward  if they're correct
+     * @return A character representing either the reward letter
+     */
+    @Override
+    public char ask() {
+        Scanner input = new Scanner(System.in);
+        System.out.println(questionText);
+        System.out.print("Your answer: ");
+        String userAnswer = input.nextLine(); // FULFILLS RUBRIC REQUIREMENT #8
+
+        // FULFILLS RUBRIC REQUIREMENT #3 (1/3)
+        // FULFILLS RUBRIC REQUIREMENT #6
+        if (checkAnswer(userAnswer)) { // If the answer is correct, it shows the reward and returns a letter
+            System.out.println("Correct! You earned the letter: " + rewardLetter + "\n");
+            return rewardLetter;
+        } else {
+            System.out.println("Incorrect.\n"); // Returns a dash if the answer is wrong
+            return '-';
+        }
+    }
+}
